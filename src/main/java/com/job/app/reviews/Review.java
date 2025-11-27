@@ -1,5 +1,6 @@
-package com.job.app.job;
+package com.job.app.reviews;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.job.app.company.Company;
 
 import jakarta.persistence.Entity;
@@ -9,30 +10,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Job {
+public class Review {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String title;
 	private String description;
-	private String minSalary;
-	private String maxSalary;
-	private String location;
+	private double rating;
 
-	@ManyToOne // Many jobs can post or can relate by a company
+	@JsonIgnore
+	@ManyToOne
 	private Company company;
 
-	public Job() {
+	public Review() {
+		super();
 	}
 
-	public Job(Long id, String title, String description, String minSalary, String maxSalary, String location) {
+	public Review(Long id, String title, String description, double rating) {
+		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.minSalary = minSalary;
-		this.maxSalary = maxSalary;
-		this.location = location;
+		this.rating = rating;
 	}
 
 	public Long getId() {
@@ -59,28 +59,12 @@ public class Job {
 		this.description = description;
 	}
 
-	public String getMinSalary() {
-		return minSalary;
+	public double getRating() {
+		return rating;
 	}
 
-	public void setMinSalary(String minSalary) {
-		this.minSalary = minSalary;
-	}
-
-	public String getMaxSalary() {
-		return maxSalary;
-	}
-
-	public void setMaxSalary(String maxSalary) {
-		this.maxSalary = maxSalary;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
 
 	public Company getCompany() {
@@ -93,8 +77,7 @@ public class Job {
 
 	@Override
 	public String toString() {
-		return "Job [id=" + id + ", title=" + title + ", description=" + description + ", minSalary=" + minSalary
-				+ ", maxSalary=" + maxSalary + ", location=" + location + "]";
+		return "Review [id=" + id + ", title=" + title + ", description=" + description + ", rating=" + rating + "]";
 	}
 
 }
